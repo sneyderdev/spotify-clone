@@ -11,6 +11,7 @@ import {
 import { cn } from '~/utils';
 
 import IconButton from './IconButton';
+import Button from './Button';
 
 interface HeaderProps {
   children: React.ReactNode;
@@ -44,6 +45,24 @@ const Header = ({ children, className }: HeaderProps) => {
           <IconButton onClick={() => {}} className="bg-white text-black">
             <IconSearch size={20} />
           </IconButton>
+        </div>
+        <div className="flex items-center justify-between gap-x-4">
+          <>
+            <div>
+              <Button variant="ghost" onClick={() => {}}>
+                Sign up
+              </Button>
+            </div>
+            <div>
+              <Button
+                variant="secondary"
+                className="px-6 py-2"
+                onClick={() => {}}
+              >
+                Log in
+              </Button>
+            </div>
+          </>
         </div>
       </div>
       {children}
