@@ -25,19 +25,12 @@ const Header = ({ children, className }: HeaderProps) => {
     >
       <div className="mb-4 flex w-full items-center justify-between">
         <div className="hidden items-center gap-x-2 md:flex">
-          <button
-            type="button"
-            className="flex h-9 w-9 items-center justify-center rounded-full bg-black transition hover:opacity-75"
-          >
+          <IconButton onClick={() => {}}>
             <IconChevronLeft stroke={1} size={28} />
-          </button>
-          <button
-            type="button"
-            onClick={() => router.forward()}
-            className="flex h-9 w-9 items-center justify-center rounded-full bg-black transition hover:opacity-75"
-          >
+          </IconButton>
+          <IconButton onClick={() => router.forward()}>
             <IconChevronRight stroke={1} size={28} />
-          </button>
+          </IconButton>
         </div>
       </div>
       {children}
