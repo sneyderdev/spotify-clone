@@ -1,3 +1,9 @@
+import Header from '~/components/Header';
+
 export default function Home() {
-  return <h1 className="text-green-500">Main content</h1>;
+  return (
+    <div className="h-full w-full overflow-hidden overflow-y-auto rounded-lg bg-neutral-900">
+      <Header />
+    </div>
+  );
 }
