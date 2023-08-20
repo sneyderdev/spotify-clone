@@ -1,7 +1,12 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react';
+import {
+  IconChevronLeft,
+  IconChevronRight,
+  IconHome,
+  IconSearch,
+} from '@tabler/icons-react';
 
 import { cn } from '~/utils';
 
@@ -30,6 +35,14 @@ const Header = ({ children, className }: HeaderProps) => {
           </IconButton>
           <IconButton onClick={() => router.forward()}>
             <IconChevronRight stroke={1} size={28} />
+          </IconButton>
+        </div>
+        <div className="flex items-center gap-x-2 md:hidden">
+          <IconButton onClick={() => {}} className="bg-white text-black">
+            <IconHome size={20} />
+          </IconButton>
+          <IconButton onClick={() => {}} className="bg-white text-black">
+            <IconSearch size={20} />
           </IconButton>
         </div>
       </div>
