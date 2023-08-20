@@ -2,6 +2,7 @@
 
 import { usePathname } from 'next/navigation';
 import { useMemo } from 'react';
+import { IconHome, IconSearch } from '@tabler/icons-react';
 
 import type { Route } from '~/types';
 
@@ -18,11 +19,13 @@ const Sidebar = ({ children }: SidebarProps) => {
   const routes: Array<Route> = useMemo(
     () => [
       {
+        icon: IconHome,
         label: 'Home',
         active: pathname !== '/search',
         href: '/',
       },
       {
+        icon: IconSearch,
         label: 'Search',
         active: pathname === '/search',
         href: '/search',

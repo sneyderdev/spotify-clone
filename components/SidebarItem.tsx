@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { cn } from '~/utils';
 import type { Route as SidebarItemProps } from '~/types';
 
-const SidebarItem = ({ label, active, href }: SidebarItemProps) => {
+const SidebarItem = ({ icon: Icon, label, active, href }: SidebarItemProps) => {
   return (
     <Link
       href={href}
@@ -12,7 +12,8 @@ const SidebarItem = ({ label, active, href }: SidebarItemProps) => {
         active && 'text-white',
       )}
     >
-      {label}
+      <Icon size={26} />
+      <p className="w-full truncate">{label}</p>
     </Link>
   );
 };
