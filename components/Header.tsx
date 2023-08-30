@@ -6,9 +6,12 @@ import {
   IconChevronRight,
   IconHome,
   IconSearch,
+  IconUser,
 } from '@tabler/icons-react';
+import { useSupabaseClient } from '@supabase/auth-helpers-react';
 
 import useAuthDialog from '~/hooks/useAuthDialog';
+import { useUser } from '~/hooks/useUser';
 import { cn } from '~/utils';
 
 import IconButton from './IconButton';
@@ -22,9 +25,18 @@ interface HeaderProps {
 const Header = ({ children, className }: HeaderProps) => {
   const router = useRouter();
   const { openDialog } = useAuthDialog();
+  const supabaseClient = useSupabaseClient();
+  const { user } = useUser();
 
-  const handleLogout = () => {
-    //TODO: Handle logout
+  const handleLogout = async () => {
+    const { error } = await supabaseClient.auth.signOut();
+
+    //TODO: Reset any playing songs
+    router.refresh();
+
+    if (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -49,22 +61,36 @@ const Header = ({ children, className }: HeaderProps) => {
           </IconButton>
         </div>
         <div className="flex items-center justify-between gap-x-4">
-          <>
-            <div>
-              <Button variant="ghost" onClick={openDialog}>
-                Sign up
+          {user ? (
+            <div className="grid grid-cols-[1fr,auto] items-center gap-x-4">
+              <Button variant="secondary" onClick={handleLogout}>
+                Logout
               </Button>
-            </div>
-            <div>
-              <Button
+              <IconButton
                 variant="secondary"
-                className="px-6 py-2"
-                onClick={openDialog}
+                onClick={() => router.push('/account')}
               >
-                Log in
-              </Button>
+                <IconUser size={20} />
+              </IconButton>
             </div>
-          </>
+          ) : (
+            <>
+              <div>
+                <Button variant="ghost" onClick={openDialog}>
+                  Sign up
+                </Button>
+              </div>
+              <div>
+                <Button
+                  variant="secondary"
+                  className="px-6 py-2"
+                  onClick={openDialog}
+                >
+                  Log in
+                </Button>
+              </div>
+            </>
+          )}
         </div>
       </div>
       {children}

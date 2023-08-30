@@ -9,7 +9,7 @@ const buttonVariants = cva(
     variants: {
       variant: {
         primary: 'bg-green-500',
-        secondary: 'bg-white',
+        secondary: 'bg-white px-6 py-2 ',
         ghost: 'bg-transparent font-medium text-neutral-300',
       },
     },

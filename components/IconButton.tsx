@@ -8,6 +8,7 @@ const iconButtonVariants = cva(
     variants: {
       variant: {
         default: 'bg-black hover:opacity-75',
+        secondary: 'bg-white text-black hover:bg-opacity-75',
         ghost: 'bg-transparent hover:bg-neutral-500 hover:bg-opacity-10',
       },
       size: {
