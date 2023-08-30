@@ -23,9 +23,7 @@ const iconButtonVariants = cva(
 
 interface IconButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof iconButtonVariants> {
-  onClick: React.MouseEventHandler<HTMLButtonElement>;
-}
+    VariantProps<typeof iconButtonVariants> {}
 
 const IconButton = ({
   variant,
