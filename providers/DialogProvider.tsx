@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 
-import Dialog from '~/components/Dialog';
+import AuthDialog from '~/components/AuthDialog';
 
 const DialogProvider = () => {
   const [isMounted, setIsMounted] = React.useState(false);
@@ -17,9 +17,7 @@ const DialogProvider = () => {
 
   return (
     <>
-      <Dialog isOpen onChange={() => {}} title="Test" description="Test">
-        Test
-      </Dialog>
+      <AuthDialog />
     </>
   );
 };

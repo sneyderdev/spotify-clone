@@ -8,6 +8,7 @@ import {
   IconSearch,
 } from '@tabler/icons-react';
 
+import useAuthDialog from '~/hooks/useAuthDialog';
 import { cn } from '~/utils';
 
 import IconButton from './IconButton';
@@ -20,6 +21,7 @@ interface HeaderProps {
 
 const Header = ({ children, className }: HeaderProps) => {
   const router = useRouter();
+  const { openDialog } = useAuthDialog();
 
   const handleLogout = () => {
     //TODO: Handle logout
@@ -49,7 +51,7 @@ const Header = ({ children, className }: HeaderProps) => {
         <div className="flex items-center justify-between gap-x-4">
           <>
             <div>
-              <Button variant="ghost" onClick={() => {}}>
+              <Button variant="ghost" onClick={openDialog}>
                 Sign up
               </Button>
             </div>
@@ -57,7 +59,7 @@ const Header = ({ children, className }: HeaderProps) => {
               <Button
                 variant="secondary"
                 className="px-6 py-2"
-                onClick={() => {}}
+                onClick={openDialog}
               >
                 Log in
               </Button>
