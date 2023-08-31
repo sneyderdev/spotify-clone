@@ -12,6 +12,7 @@ import { useSupabaseClient } from '@supabase/auth-helpers-react';
 
 import useAuthDialog from '~/hooks/useAuthDialog';
 import { useUser } from '~/hooks/useUser';
+import { useToast } from '~/hooks/useToast';
 import { cn } from '~/utils';
 
 import IconButton from './IconButton';
@@ -27,6 +28,7 @@ const Header = ({ children, className }: HeaderProps) => {
   const { openDialog } = useAuthDialog();
   const supabaseClient = useSupabaseClient();
   const { user } = useUser();
+  const { toast } = useToast();
 
   const handleLogout = async () => {
     const { error } = await supabaseClient.auth.signOut();
@@ -35,8 +37,19 @@ const Header = ({ children, className }: HeaderProps) => {
     router.refresh();
 
     if (error) {
-      console.error(error);
+      toast({
+        title: 'Error',
+        description: error.message,
+        variant: 'destructive',
+      });
+
+      return;
     }
+
+    toast({
+      title: 'Success',
+      description: 'You have been logged out.',
+    });
   };
 
   return (
