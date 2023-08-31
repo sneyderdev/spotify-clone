@@ -2,11 +2,25 @@
 
 import { IconPlaylist, IconPlus } from '@tabler/icons-react';
 
+import useAuthDialog from '~/hooks/useAuthDialog';
+import useUploadDialog from '~/hooks/useUploadDialog';
+import { useUser } from '~/hooks/useUser';
+
 import IconButton from './IconButton';
 
 const Library = () => {
+  const authDialog = useAuthDialog();
+  const uploadDialog = useUploadDialog();
+  const { user } = useUser();
+
   const onClick = () => {
-    //TODO: Handle upload later
+    if (!user) {
+      return authDialog.openDialog();
+    }
+
+    //TODO: Check for subscription
+
+    return uploadDialog.openDialog();
   };
 
   return (

@@ -3,6 +3,7 @@
 import * as React from 'react';
 
 import AuthDialog from '~/components/AuthDialog';
+import UploadDialog from '~/components/UploadDialog';
 
 const DialogProvider = () => {
   const [isMounted, setIsMounted] = React.useState(false);
@@ -18,6 +19,7 @@ const DialogProvider = () => {
   return (
     <>
       <AuthDialog />
+      <UploadDialog />
     </>
   );
 };
