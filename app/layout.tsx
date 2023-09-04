@@ -2,6 +2,8 @@ import './globals.css';
 import type { Metadata } from 'next';
 import { Figtree } from 'next/font/google';
 
+import getSongsByUserId from '~/actions/getSongsByUserId';
+
 import SupabaseProvider from '~/providers/SupabaseProvider';
 import UserProvider from '~/providers/UserProvider';
 import DialogProvider from '~/providers/DialogProvider';
@@ -15,11 +17,15 @@ export const metadata: Metadata = {
   description: 'Listen to music for free.',
 };
 
-export default function RootLayout({
+export const revalidate = 0;
+
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const songs = await getSongsByUserId();
+
   return (
     <html lang="en">
       <body className={font.className}>
@@ -27,7 +33,7 @@ export default function RootLayout({
         <SupabaseProvider>
           <UserProvider>
             <DialogProvider />
-            <Sidebar>{children}</Sidebar>
+            <Sidebar songs={songs}>{children}</Sidebar>
           </UserProvider>
         </SupabaseProvider>
       </body>

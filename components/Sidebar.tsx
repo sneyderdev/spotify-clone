@@ -4,7 +4,7 @@ import { usePathname } from 'next/navigation';
 import { useMemo } from 'react';
 import { IconHome, IconSearch } from '@tabler/icons-react';
 
-import type { Route } from '~/types';
+import type { Route, Song } from '~/types';
 
 import Box from './Box';
 import SidebarItem from './SidebarItem';
@@ -12,9 +12,10 @@ import Library from './Library';
 
 interface SidebarProps {
   children: React.ReactNode;
+  songs: Array<Song>;
 }
 
-const Sidebar = ({ children }: SidebarProps) => {
+const Sidebar = ({ children, songs }: SidebarProps) => {
   const pathname = usePathname();
 
   const routes: Array<Route> = useMemo(
@@ -46,7 +47,7 @@ const Sidebar = ({ children }: SidebarProps) => {
           </div>
         </Box>
         <Box className="h-full overflow-y-auto">
-          <Library />
+          <Library songs={songs} />
         </Box>
       </aside>
       <main className="h-full flex-1 overflow-y-auto py-2">{children}</main>

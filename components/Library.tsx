@@ -5,10 +5,16 @@ import { IconPlaylist, IconPlus } from '@tabler/icons-react';
 import useAuthDialog from '~/hooks/useAuthDialog';
 import useUploadDialog from '~/hooks/useUploadDialog';
 import { useUser } from '~/hooks/useUser';
+import { Song } from '~/types';
 
 import IconButton from './IconButton';
+import LibraryItem from './LibraryItem';
 
-const Library = () => {
+interface LibraryProps {
+  songs: Array<Song>;
+}
+
+const Library = ({ songs }: LibraryProps) => {
   const authDialog = useAuthDialog();
   const uploadDialog = useUploadDialog();
   const { user } = useUser();
@@ -38,7 +44,11 @@ const Library = () => {
           <IconPlus size={20} />
         </IconButton>
       </div>
-      <div className="mt-4 flex flex-col gap-y-2 px-3">Songs</div>
+      <div className="mt-4 flex flex-col gap-y-2 px-3">
+        {songs.map((song) => (
+          <LibraryItem key={song.id} song={song} />
+        ))}
+      </div>
     </div>
   );
 };
