@@ -3,6 +3,7 @@
 import { Song } from '~/types';
 
 import LibraryItem from '~/components/LibraryItem';
+import LikeButton from '~/components/LikeButton';
 
 interface SearchContentProps {
   songs: Array<Song>;
@@ -24,7 +25,7 @@ const SearchContent = ({ songs }: SearchContentProps) => {
           <div className="flex-1">
             <LibraryItem song={song} />
           </div>
-          {/* TODO: Add like button */}
+          <LikeButton songId={song.id} />
         </div>
       ))}
     </div>
