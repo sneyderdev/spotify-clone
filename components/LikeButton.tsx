@@ -8,12 +8,14 @@ import useAuthDialog from '~/hooks/useAuthDialog';
 import { useUser } from '~/hooks/useUser';
 import { useToast } from '~/hooks/useToast';
 import { cn } from '~/utils';
+import { useRouter } from 'next/navigation';
 
 interface LikeButtonProps {
   songId: string;
 }
 
 const LikeButton = ({ songId }: LikeButtonProps) => {
+  const router = useRouter();
   const { supabaseClient } = useSessionContext();
 
   const authDialog = useAuthDialog();
@@ -51,41 +53,33 @@ const LikeButton = ({ songId }: LikeButtonProps) => {
       return authDialog.openDialog();
     }
 
-    if (!isLiked) {
-      const { error } = await supabaseClient
-        .from('liked_songs')
-        .insert({ user_id: user.id, song_id: songId });
+    const { error } = !isLiked
+      ? await supabaseClient
+          .from('liked_songs')
+          .insert({ user_id: user.id, song_id: songId })
+      : await supabaseClient
+          .from('liked_songs')
+          .delete()
+          .eq('user_id', user.id)
+          .eq('song_id', songId);
 
-      if (!error) {
-        setIsLiked(true);
-
-        return toast({
-          title: 'Song liked',
-          description: 'Song has been added to your liked songs.',
-        });
-      }
-
+    if (error) {
       return toast({
-        title: 'Error adding like',
+        title: !isLiked ? 'Error adding like' : 'Error removing like',
         description: error.message,
         variant: 'destructive',
       });
     }
 
-    const { error } = await supabaseClient
-      .from('liked_songs')
-      .delete()
-      .eq('user_id', user.id)
-      .eq('song_id', songId);
+    setIsLiked(!isLiked);
 
-    if (!error) {
-      return setIsLiked(false);
-    }
+    router.refresh();
 
     toast({
-      title: 'Error removing like',
-      description: error.message,
-      variant: 'destructive',
+      title: !isLiked ? 'Song liked' : 'Like removed',
+      description: !isLiked
+        ? 'Song has been added to your liked songs.'
+        : 'Song has been removed from your liked songs.',
     });
   };
 
