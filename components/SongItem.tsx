@@ -8,8 +8,8 @@ import { Song } from '~/types';
 import PlayButton from './PlayButton';
 
 interface SongItemProps {
-  onClick: React.MouseEventHandler<HTMLButtonElement>;
   song: Song;
+  onClick: (id: string) => void;
 }
 
 const SongItem = ({ onClick, song }: SongItemProps) => {
@@ -17,7 +17,7 @@ const SongItem = ({ onClick, song }: SongItemProps) => {
 
   return (
     <div
-      onClick={() => {}}
+      onClick={() => onClick(song.id)}
       className="group relative flex flex-col items-center justify-center gap-x-4 overflow-hidden rounded-md bg-neutral-400/5 p-3 transition hover:bg-neutral-400/10"
     >
       <div className="relative aspect-square h-full w-full overflow-hidden rounded-md">
