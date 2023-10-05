@@ -4,6 +4,8 @@ import { usePathname } from 'next/navigation';
 import { useMemo } from 'react';
 import { IconHome, IconSearch } from '@tabler/icons-react';
 
+import usePlayer from '~/hooks/usePlayer';
+import { cn } from '~/utils';
 import type { Route, Song } from '~/types';
 
 import Box from './Box';
@@ -17,6 +19,7 @@ interface SidebarProps {
 
 const Sidebar = ({ children, songs }: SidebarProps) => {
   const pathname = usePathname();
+  const player = usePlayer();
 
   const routes: Array<Route> = useMemo(
     () => [
@@ -37,7 +40,9 @@ const Sidebar = ({ children, songs }: SidebarProps) => {
   );
 
   return (
-    <div className="flex h-full">
+    <div
+      className={cn('flex h-full', player.activeId && 'h-[calc(100%-80px)]')}
+    >
       <aside className="hidden h-full w-[300px] flex-col gap-y-2 bg-black p-2 md:flex">
         <Box>
           <div className="flex flex-col gap-y-4 px-5 py-4">
