@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
 import { useUser } from '~/hooks/useUser';
+import useOnPlay from '~/hooks/useOnPlay';
 import { Song } from '~/types';
 
 import LibraryItem from '~/components/LibraryItem';
@@ -16,6 +17,7 @@ interface LikedContentProps {
 const LikedContent = ({ songs }: LikedContentProps) => {
   const router = useRouter();
   const { isLoading, user } = useUser();
+  const onPlay = useOnPlay(songs);
 
   useEffect(() => {
     if (!isLoading && !user) {
@@ -36,7 +38,7 @@ const LikedContent = ({ songs }: LikedContentProps) => {
       {songs.map((song) => (
         <div key={song.id} className="items-cneter flex w-full gap-x-4">
           <div className="flex-1">
-            <LibraryItem song={song} />
+            <LibraryItem song={song} onClick={(id: string) => onPlay(id)} />
           </div>
           <LikeButton songId={song.id} />
         </div>

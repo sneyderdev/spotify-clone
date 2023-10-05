@@ -5,6 +5,7 @@ import { IconPlaylist, IconPlus } from '@tabler/icons-react';
 import useAuthDialog from '~/hooks/useAuthDialog';
 import useUploadDialog from '~/hooks/useUploadDialog';
 import { useUser } from '~/hooks/useUser';
+import useOnPlay from '~/hooks/useOnPlay';
 import { Song } from '~/types';
 
 import IconButton from './IconButton';
@@ -18,6 +19,8 @@ const Library = ({ songs }: LibraryProps) => {
   const authDialog = useAuthDialog();
   const uploadDialog = useUploadDialog();
   const { user } = useUser();
+
+  const onPlay = useOnPlay(songs);
 
   const onClick = () => {
     if (!user) {
@@ -46,7 +49,11 @@ const Library = ({ songs }: LibraryProps) => {
       </div>
       <div className="mt-4 flex flex-col gap-y-2 px-3">
         {songs.map((song) => (
-          <LibraryItem key={song.id} song={song} />
+          <LibraryItem
+            key={song.id}
+            song={song}
+            onClick={(id: string) => onPlay(id)}
+          />
         ))}
       </div>
     </div>

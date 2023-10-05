@@ -7,13 +7,17 @@ import { Song } from '~/types';
 
 interface LibraryItemProps {
   song: Song;
+  onClick: (id: string) => void;
 }
 
-const LibraryItem = ({ song }: LibraryItemProps) => {
+const LibraryItem = ({ song, onClick }: LibraryItemProps) => {
   const imageUrl = useLoadImage(song);
 
   return (
-    <div className="flex w-full items-center gap-x-3 rounded-md p-2 hover:bg-neutral-800/50">
+    <div
+      className="flex w-full items-center gap-x-3 rounded-md p-2 hover:bg-neutral-800/50"
+      onClick={() => onClick(song.id)}
+    >
       <div className="relative min-h-[48px] min-w-[48px] overflow-hidden rounded-md">
         <Image
           src={imageUrl || '/images/liked.png'}
